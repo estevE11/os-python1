@@ -1,0 +1,9 @@
+The purpose of the script is to have the ability to process configuration file FW_1238.conf to extract relevant information in an automàtic way and generate a report file with a format similar to the one in Report.DOC or Report.PDF
+
+The report file could be a PDF file, a DOC file or an HTML file. Before using any other formats (ask lecturer about)
+
+The content of the file must have static text, but also dynamic text (extracted from the configuration file) (the text in yellow)
+
+The text in blue will help you to locate the relevant information on the configuration file
+
+The script should ask for the source configuration file and write the report for that file
