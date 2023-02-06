@@ -1,7 +1,7 @@
-import configparser
+import sys
 
 def load_conf(path):
-    f = open("FW_1238.conf", "r")
+    f = open(path, "r")
     raw_data = f.read()
     raw_data = raw_data.split("\n")
 
@@ -38,10 +38,21 @@ def load_conf(path):
 
 
 if __name__ == "__main__":
-    f = open("snippet.html", "r")
+    if len(sys.argv) < 2:
+        print(f"Error: Missing arguments")
+        print(f"Usage: {sys.argv[0]} conf_path *snippet_path")
+        print(f"* -> optional")
+        exit(1)
+
+    snippet_path = "snippet.html"
+    if len(sys.argv) == 3:
+        snippet_path = sys.argv[2]
+
+    f = open(snippet_path, "r")
     snippet = f.read()
 
-    conf = load_conf("FW_1238.conf")
+    conf_path = sys.argv[1]
+    conf = load_conf(conf_path)
 
     interf = conf['config system interface']
     for key in interf.keys():
@@ -56,7 +67,8 @@ if __name__ == "__main__":
             else:
                 print("relay: -")
 
-    print("Saving FW_1238.html")
-    f = open("FW_1238.html", "w")
+    save_path = conf_path.split(".")[0] + ".html"
+    print("Saving " + save_path)
+    f = open(save_path, "w")
     f.write(snippet)
     f.close()
