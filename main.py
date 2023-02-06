@@ -1,16 +1,12 @@
 import configparser
 
-if __name__ == "__main__":
-    f = open("snippet.html", "r")
-    snippet = f.read()
-
+def load_conf(path):
     f = open("FW_1238.conf", "r")
     raw_data = f.read()
     raw_data = raw_data.split("\n")
 
     conf = {}
 
-    indent = 0
     i = 0
 
     current_stack = []
@@ -23,7 +19,6 @@ if __name__ == "__main__":
             curr = curr[current_stack[i]]
         curr[key] = val.split(" ")[2:]
 
-    raw_data = raw_data[:111]
     for i in range(len(raw_data)):
         line = raw_data[i].strip()
 
@@ -37,7 +32,16 @@ if __name__ == "__main__":
             current_stack.pop()
 
         i += 1
-            
+
+    return conf
+
+
+
+if __name__ == "__main__":
+    f = open("snippet.html", "r")
+    snippet = f.read()
+
+    conf = load_conf("FW_1238.conf")
 
     interf = conf['config system interface']
     for key in interf.keys():
@@ -45,13 +49,14 @@ if __name__ == "__main__":
         if name.startswith("port"):
             print(f"----------------------")
             print(f"interficie: {name}")
-            print(f"alias: " + interf[key]["alias"][0])
+            print(f"alias: " + interf[key]["alias"][0][1:-1])
             print(f"ip: " + interf[key]["ip"][0])
             if "dhcp-relay-ip" in interf[key]:
                 print(f"relay: " + interf[key]["dhcp-relay-ip"][0])
             else:
                 print("relay: -")
-    #print()
-    #f = open("output.html", "w")
-    #f.write(data)
-    #f.close()
+
+    print("Saving FW_1238.html")
+    f = open("FW_1238.html", "w")
+    f.write(snippet)
+    f.close()
