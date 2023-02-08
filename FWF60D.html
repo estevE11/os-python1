@@ -5,11 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
 </head>
 <body>
     <h1>1. Introducció</h1>
     <h1>1.1. Descripció</h1>
-    <p>El present document descriu la configuració realitzada en el dispositiu Fortigate-%config-version% de Fortinet a la empresa TecnoCampus resultat de la substitució de un Firewall perimetral Cisco de l’organització.</p>
+    <p>El present document descriu la configuració realitzada en el dispositiu Fortigate-60D de Fortinet a la empresa TecnoCampus resultat de la substitució de un Firewall perimetral Cisco de l’organització.</p>
     
     <h1>1.2. Objectius</h1>
     <p>El objectiu d’aquest document és la de formalitzar el traspàs d’informació al equip tècnic responsable del manteniment de les infraestructures instal·lades. Aquesta informació fa referencia al disseny, instal·lació i configuració dels dispositius i sistemes afectats per la implementació.</p>
@@ -26,26 +32,26 @@
     </ul>
 
     <h1>2. Configuració del Dispositiu</h1>
-    <p>A continuació es detalla la configuració del disposiut Fortigate-%version%.</p>
+    <p>A continuació es detalla la configuració del disposiut Fortigate-60D.</p>
 
     <h1>2.1 Dispositiu</h1>
     <table>
         <tr>
-            <td>Marca-Model</td>
-            <td>FortiGate %version%</td>
+            <th>Marca-Model</th>
+            <td>FortiGate 60D</td>
         </tr>
         <tr>
-            <td>OS/Firmware</td>
-            <td>%firm%</td>
+            <th>OS/Firmware</th>
+            <td>v5.02,build642 (141118)</td>
         </tr>
         <tr>
-            <td>S/N</td>
+            <th>S/N</th>
             <td></td>
         </tr>
     </table>
 
     <h1>2.2. Credencials d’accés</h1>
-    <p><b>Accés: </b>https://10.132.4.254:%acc%</p>
+    <p><b>Accés: </b>https://10.132.4.254:8443</p>
     <p><b>Usuari: </b>admin</p>
     <p><b>Password: </b>dfAS34</p>
     <p><b>Restriccions d’accés: </b>xarxes %ip1%,%ip2%,%ip3%</p>
@@ -55,22 +61,40 @@
         d’enrutament.</p>
     <p>DNS:</p>
     <ul>
-        <li>Servidor Primari: %spri%</li>
-        <li>Servidor Secundari: %ssec%</li>
-        <li>Non del domini Local: %dom%</li>
+        <li>Servidor Primari: 10.120.1.1</li>
+        <li>Servidor Secundari: 8.8.8.8</li>
+        <li>Non del domini Local: innevis</li>
     </ul>
 
     <h1>2.4. Interfícies</h1>
     <p>El dispositiu instal·lat disposa d’una taula de polítiques de connexió per tal de definir el
         comportament del mateix per cada una de les connexions tractades.</p>
-    <!--tabla-->
+    
+    <table>
+        <tr>
+            <th>Inteficie</th>
+            <th>Alias</th>
+            <th>Address/FQDN</th>
+            <th>DHCPRelay</th>
+        </tr>
+        <tr><td>wan1</td><td>Movistar-Gestion</td><td>10.120.1.2</td><td>-</td></tr><tr><td>wan2</td><td>ONO</td><td>10.120.0.2</td><td>-</td></tr><tr><td>internal1</td><td>Lan</td><td>10.120.1.1</td><td>-</td></tr><tr><td>internal3</td><td>Phones</td><td>10.120.3.1</td><td>-</td></tr><tr><td>internal7</td><td>LAB-MGM</td><td>10.120.1.2</td><td>-</td></tr><tr><td>wlan-tecnotec</td><td>-</td><td>10.120.2.1</td><td>-</td></tr><tr><td>TecnoTec21VPN</td><td>-</td><td>0.0.0.0</td><td>-</td></tr>
+    </table>
+
     <p>Migració de la infraestructura de seguretat perimetral</p>
 
     <h1>2.5 Taula d’enrutament</h1>
-    <p>S’ha definit %defa% default gw per permetre la sortida per les dues sortides a internet de la organització.
+    <p>S’ha definit 19 default gw per permetre la sortida per les dues sortides a internet de la organització.
         Per defecte el tràfic sortirà a través del GW %gw1% (prioritat menor) i en cas de caiguda de la
         línia es redirigirà el tràfic a través del GW %gw2%.</p>
-        <!--tabla-->
+    <table>
+        <tr>
+            <th>Xarxa destí</th>
+            <th>GW</th>
+            <th>Inteficie</th>
+            <th>Prioritat</th>
+        </tr>
+        <tr><td>0.0.0.0/0.0.0.0</td><td>10.120.0.1</td><td>wan2</td><td>1000</td><tr><td>10.120.10.0/255.255.255.0</td><td>0.0.0.0</td><td>ssl.root</td><td>-</td><tr><td>10.120.186.207/255.255.255.255</td><td>10.120.0.1</td><td>wan2</td><td>-</td><tr><td>10.120.2.0/255.255.255.0</td><td>10.120.1.207</td><td>internal1</td><td>-</td><tr><td>10.120.201.0/255.255.255.0</td><td>0.0.0.0</td><td>ssl.root</td><td>-</td><tr><td>10.120.3.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.160.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.2.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.38.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.254.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.122.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.5.99/255.255.255.255</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.0.0.0/255.0.0.0</td><td>0.0.0.0</td><td>TecnoTec2VPN</td><td>-</td><tr><td>10.120.50.1/255.255.255.255</td><td>0.0.0.0</td><td>Clouuds</td><td>-</td><tr><td>10.120.20.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec4</td><td>-</td><tr><td>10.120.8.0/255.255.255.0</td><td>0.0.0.0</td><td>TecnoTec21VPN</td><td>-</td><tr><td>10.120.11.0/255.255.255.0</td><td>0.0.0.0</td><td>INN-Vandr</td><td>-</td><tr><td>10.120.36.107/255.255.255.255</td><td>0.0.0.0</td><td>TecnoTec2VPN</td><td>-</td><tr><td>10.120.0.0/255.255.255.0</td><td>10.120.1.36</td><td>internal1</td><td>-</td>
+    </table>
     <p>S’ha definit una sèrie de Health-checks de ping  a través de les
         interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
         <!--tabla-->
@@ -78,12 +102,32 @@
     <h1>2.6 Objectes Adreces del Firewall</h1>
     <p>El dispositiu actualment te vinculats determinats objectes (noms descriptius) a adreces IP per
         tal de facilitar la seva utilització en el sistema.</p>
-
-
-
+         <!--tabla-->
     
+    <p>*[set type] = not exist (Subnet) / [set type] = iprange (range)</p>
+    <p>Migració de la infraestructura de seguretat perimetral</p>
 
+    <h1>2.7. Objectes Serveis</h1>
+    <p>El dispositiu configurat disposa de serveis predeterminats per defecte establerts per FortiNet i
+        addicionalment te introduïts serveis personalitzats. </p>
+    <p>Els serveis predeterminats són:</p>
+        <!--tabla-->
+        <p>Migració de la infraestructura de seguretat perimetral</p>
+         <!--tabla-->
+         <p>Migració de la infraestructura de seguretat perimetral</p>
+         <!--tabla-->
+         <p>Els serveis addicionals són:</p>
+        <!--tabla-->
 
+    <h1>2.8. NATs d’entrada (Virtual IPs)</h1>
+    <p>S’ha definit els següents NATs d’entrada (VIPs en nomenclatura Fortinet)</p>
+    <p>Migració de la infraestructura de seguretat perimetral</p>
+     <!--tabla-->
+    
+     <h1>2.9. Polítiques de Firewall</h1>
+     <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
+     <!--tabla-->
+     <p>Migració de la infraestructura de seguretat perimetral</p>
 
     <h1>2.10. Servei Antivirus</h1>
     <p>El servei antivirus perimetral proveeix d’una base de dades automatitzada per assegurar la protecció davant de possible contingut de malware detectat a través de la navegació WEB.</p>

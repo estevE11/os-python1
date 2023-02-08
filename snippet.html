@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
 </head>
 <body>
     <h1>1. Introducció</h1>
@@ -31,15 +37,15 @@
     <h1>2.1 Dispositiu</h1>
     <table>
         <tr>
-            <td>Marca-Model</td>
+            <th>Marca-Model</th>
             <td>FortiGate %version%</td>
         </tr>
         <tr>
-            <td>OS/Firmware</td>
+            <th>OS/Firmware</th>
             <td>%firm%</td>
         </tr>
         <tr>
-            <td>S/N</td>
+            <th>S/N</th>
             <td></td>
         </tr>
     </table>
@@ -63,14 +69,32 @@
     <h1>2.4. Interfícies</h1>
     <p>El dispositiu instal·lat disposa d’una taula de polítiques de connexió per tal de definir el
         comportament del mateix per cada una de les connexions tractades.</p>
-    <!--tabla-->
+    
+    <table>
+        <tr>
+            <th>Inteficie</th>
+            <th>Alias</th>
+            <th>Address/FQDN</th>
+            <th>DHCPRelay</th>
+        </tr>
+        %table_interf%
+    </table>
+
     <p>Migració de la infraestructura de seguretat perimetral</p>
 
     <h1>2.5 Taula d’enrutament</h1>
     <p>S’ha definit %defa% default gw per permetre la sortida per les dues sortides a internet de la organització.
         Per defecte el tràfic sortirà a través del GW %gw1% (prioritat menor) i en cas de caiguda de la
         línia es redirigirà el tràfic a través del GW %gw2%.</p>
-        <!--tabla-->
+    <table>
+        <tr>
+            <th>Xarxa destí</th>
+            <th>GW</th>
+            <th>Inteficie</th>
+            <th>Prioritat</th>
+        </tr>
+        %table_enr%
+    </table>
     <p>S’ha definit una sèrie de Health-checks de ping  a través de les
         interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
         <!--tabla-->
