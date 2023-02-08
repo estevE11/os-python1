@@ -88,8 +88,6 @@
         <tr><td>port1</td><td>Outside</td><td>10.132.0.254</td><td>-</td></tr><tr><td>port2</td><td>Inside-srv</td><td>10.132.6.254</td><td>-</td></tr><tr><td>port3</td><td>Inside-wrk</td><td>10.132.4.254</td><td>10.132.6.96</td></tr><tr><td>port4</td><td>Outside-wlan</td><td>10.132.7.254</td><td>-</td></tr>
     </table>
 
-    <p>Migració de la infraestructura de seguretat perimetral</p>
-
     <h1>2.5 Taula d’enrutament</h1>
     <p>S’ha definit 2 default gw per permetre la sortida per les dues sortides a internet de la organització.
         Per defecte el tràfic sortirà a través del GW %gw1% (prioritat menor) i en cas de caiguda de la
@@ -110,7 +108,16 @@
     <h1>2.6 Objectes Adreces del Firewall</h1>
     <p>El dispositiu actualment te vinculats determinats objectes (noms descriptius) a adreces IP per
         tal de facilitar la seva utilització en el sistema.</p>
-         <!--tabla-->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Address/FQDN</th>
+            <th>Interface</th>
+            <th>Type*</th>
+        </tr>
+        %table_fire%
+    </table>
     
     <p>*[set type] = not exist (Subnet) / [set type] = iprange (range)</p>
     <p>Migració de la infraestructura de seguretat perimetral</p>
@@ -119,23 +126,61 @@
     <p>El dispositiu configurat disposa de serveis predeterminats per defecte establerts per FortiNet i
         addicionalment te introduïts serveis personalitzats. </p>
     <p>Els serveis predeterminats són:</p>
-        <!--tabla-->
-        <p>Migració de la infraestructura de seguretat perimetral</p>
-         <!--tabla-->
-         <p>Migració de la infraestructura de seguretat perimetral</p>
-         <!--tabla-->
-         <p>Els serveis addicionals són:</p>
-        <!--tabla-->
+    <table>
+        <tr>
+            <th>Nom del servei</th>
+            <th>Categoria</th>
+            <th>Ports TCP</th>
+            <th>Ports UDP</th>
+            <th>Protocol</th>
+        </tr>
+        %table_obj_serv%
+    </table>
+    <p>Els serveis addicionals són:</p>
+    <table>
+        <tr>
+            <th>Nom del servei</th>
+            <th>Categoria</th>
+            <th>Ports TCP</th>
+            <th>Ports UDP</th>
+        </tr>
+        %table_add%
+    </table>
 
     <h1>2.8. NATs d’entrada (Virtual IPs)</h1>
     <p>S’ha definit els següents NATs d’entrada (VIPs en nomenclatura Fortinet)</p>
-    <p>Migració de la infraestructura de seguretat perimetral</p>
-     <!--tabla-->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>External IP Address/Range</th>
+            <th>External Service Port</th>
+            <th>Mapped IP Address/Range</th>
+            <th>Map to Port</th>
+        </tr>
+        %table_nats%
+    </table>
     
-     <h1>2.9. Polítiques de Firewall</h1>
-     <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
-     <!--tabla-->
-     <p>Migració de la infraestructura de seguretat perimetral</p>
+    <h1>2.9. Polítiques de Firewall</h1>
+    <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Service</th>
+            <th>Action</th>
+            <th>AV</th>
+            <th>Web Filter</th>
+            <th>App Control</th>
+            <th>IPS</th>
+            <th>SSL Inspect</th>
+            <th>Log</th>
+            <th>NAT</th>
+        </tr>
+        %table_p_fire%
+    </table>
 
     <h1>2.10. Servei Antivirus</h1>
     <p>El servei antivirus perimetral proveeix d’una base de dades automatitzada per assegurar la protecció davant de possible contingut de malware detectat a través de la navegació WEB.</p>
