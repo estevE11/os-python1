@@ -5,13 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        body {
+            background-color: lightgray;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 100px;
+            margin-top: 0;
+            background-color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 4px 10px;
+            text-align: left;
+            background-color: #333;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #eaeaea;
+        }
+
+        td {
+            padding: 2px 10px;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
     <h1>1. Introducció</h1>
-    <h1>1.1. Descripció</h1>
-    <p>El present document descriu la configuració realitzada en el dispositiu Fortigate-%config-version% de Fortinet a la empresa TecnoCampus resultat de la substitució de un Firewall perimetral Cisco de l’organització.</p>
+    <h2>1.1. Descripció</h2>
+    <p>El present document descriu la configuració realitzada en el dispositiu Fortigate-80D de Fortinet a la empresa TecnoCampus resultat de la substitució de un Firewall perimetral Cisco de l’organització.</p>
     
-    <h1>1.2. Objectius</h1>
+    <h2>1.2. Objectius</h2>
     <p>El objectiu d’aquest document és la de formalitzar el traspàs d’informació al equip tècnic responsable del manteniment de les infraestructures instal·lades. Aquesta informació fa referencia al disseny, instal·lació i configuració dels dispositius i sistemes afectats per la implementació.</p>
 
     <p>
@@ -26,117 +61,170 @@
     </ul>
 
     <h1>2. Configuració del Dispositiu</h1>
-    <p>A continuació es detalla la configuració del disposiut Fortigate-%version%.</p>
+    <p>A continuació es detalla la configuració del disposiut Fortigate-80D.</p>
 
-    <h1>2.1 Dispositiu</h1>
+    <h2>2.1 Dispositiu</h2>
     <table>
         <tr>
-            <td>Marca-Model</td>
-            <td>FortiGate %version%</td>
+            <th>Marca-Model</th>
+            <td>FortiGate 80D</td>
         </tr>
         <tr>
-            <td>OS/Firmware</td>
-            <td>%firm%</td>
+            <th>OS/Firmware</th>
+            <td>v5.02,build688 (150814)</td>
         </tr>
         <tr>
-            <td>S/N</td>
+            <th>S/N</th>
             <td></td>
         </tr>
     </table>
 
-    <h1>2.2. Credencials d’accés</h1>
-    <p><b>Accés: </b>https://10.132.4.254:%acc%</p>
+    <h2>2.2. Credencials d’accés</h2>
+    <p><b>Accés: </b>https://10.132.4.254:x</p>
     <p><b>Usuari: </b>admin</p>
     <p><b>Password: </b>dfAS34</p>
-    <p><b>Restriccions d’accés: </b>xarxes %ip1%,%ip2%,%ip3%</p>
+    <p><b>Restriccions d’accés: </b>xarxes 10.162.1.0,201.114.37.231,72.162.111.132</p>
 
-    <h1>2.3 General</h1>
+    <h2>2.3 General</h2>
     <p>El dispositiu està configurat en mode NAT, és a dir, es separen vàries xarxes a nivell tres
         d’enrutament.</p>
     <p>DNS:</p>
     <ul>
-        <li>Servidor Primari: %spri%</li>
-        <li>Servidor Secundari: %ssec%</li>
-        <li>Non del domini Local: %dom%</li>
+        <li>Servidor Primari: 213.34.112.53</li>
+        <li>Servidor Secundari: 213.34.112.52</li>
+        <li>Non del domini Local: -</li>
     </ul>
 
-    <h1>2.4. Interfícies</h1>
+    <h2>2.4. Interfícies</h2>
     <p>El dispositiu instal·lat disposa d’una taula de polítiques de connexió per tal de definir el
         comportament del mateix per cada una de les connexions tractades.</p>
     
     <table>
-        <tr>
-            <th>Buenas</th>
-            <th>Buenas</th>
-            <th>Buenas</th>
-        </tr>
-        <tr>
-            <td>Buenas</td>
-            <td>Buenas</td>
-            <td>Buenas</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Inteficie</th>
+                <th>Alias</th>
+                <th>Address/FQDN</th>
+                <th>DHCPRelay</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>port1</td><td>INTERNET</td><td>10.67.190.74</td><td>-</td></tr><tr><td>port2</td><td>ADMINISTRACIO</td><td>10.162.1.1</td><td>-</td></tr><tr><td>port3</td><td>SECRETARIA</td><td>10.162.17.1</td><td>-</td></tr><tr><td>port4</td><td>COLEGI</td><td>10.162.13.1</td><td>-</td></tr>
+        </tbody>
     </table>
 
-    <p>Migració de la infraestructura de seguretat perimetral</p>
-
-    <h1>2.5 Taula d’enrutament</h1>
-    <p>S’ha definit %defa% default gw per permetre la sortida per les dues sortides a internet de la organització.
+    <h2>2.5 Taula d’enrutament</h2>
+    <p>S’ha definit 1 default gw per permetre la sortida per les dues sortides a internet de la organització.
         Per defecte el tràfic sortirà a través del GW %gw1% (prioritat menor) i en cas de caiguda de la
         línia es redirigirà el tràfic a través del GW %gw2%.</p>
-        <!--tabla-->
+    <table>
+        <tr>
+            <th>Xarxa destí</th>
+            <th>GW</th>
+            <th>Inteficie</th>
+            <th>Prioritat</th>
+        </tr>
+        <tr><td>0.0.0.0/0.0.0.0</td><td>10.68.206.73</td><td>port1</td><td>-</td>
+    </table>
     <p>S’ha definit una sèrie de Health-checks de ping  a través de les
         interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
         <!--tabla-->
 
-    <h1>2.6 Objectes Adreces del Firewall</h1>
+    <h2>2.6 Objectes Adreces del Firewall</h2>
     <p>El dispositiu actualment te vinculats determinats objectes (noms descriptius) a adreces IP per
         tal de facilitar la seva utilització en el sistema.</p>
-         <!--tabla-->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Address/FQDN</th>
+            <th>Interface</th>
+            <th>Type*</th>
+        </tr>
+        %table_fire%
+    </table>
     
     <p>*[set type] = not exist (Subnet) / [set type] = iprange (range)</p>
     <p>Migració de la infraestructura de seguretat perimetral</p>
 
-    <h1>2.7. Objectes Serveis</h1>
+    <h2>2.7. Objectes Serveis</h2>
     <p>El dispositiu configurat disposa de serveis predeterminats per defecte establerts per FortiNet i
         addicionalment te introduïts serveis personalitzats. </p>
     <p>Els serveis predeterminats són:</p>
-        <!--tabla-->
-        <p>Migració de la infraestructura de seguretat perimetral</p>
-         <!--tabla-->
-         <p>Migració de la infraestructura de seguretat perimetral</p>
-         <!--tabla-->
-         <p>Els serveis addicionals són:</p>
-        <!--tabla-->
+    <table>
+        <tr>
+            <th>Nom del servei</th>
+            <th>Categoria</th>
+            <th>Ports TCP</th>
+            <th>Ports UDP</th>
+            <th>Protocol</th>
+        </tr>
+        %table_obj_serv%
+    </table>
+    <p>Els serveis addicionals són:</p>
+    <table>
+        <tr>
+            <th>Nom del servei</th>
+            <th>Categoria</th>
+            <th>Ports TCP</th>
+            <th>Ports UDP</th>
+        </tr>
+        %table_add%
+    </table>
 
-    <h1>2.8. NATs d’entrada (Virtual IPs)</h1>
+    <h2>2.8. NATs d’entrada (Virtual IPs)</h2>
     <p>S’ha definit els següents NATs d’entrada (VIPs en nomenclatura Fortinet)</p>
-    <p>Migració de la infraestructura de seguretat perimetral</p>
-     <!--tabla-->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>External IP Address/Range</th>
+            <th>External Service Port</th>
+            <th>Mapped IP Address/Range</th>
+            <th>Map to Port</th>
+        </tr>
+        %table_nats%
+    </table>
     
-     <h1>2.9. Polítiques de Firewall</h1>
-     <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
-     <!--tabla-->
-     <p>Migració de la infraestructura de seguretat perimetral</p>
+    <h2>2.9. Polítiques de Firewall</h2>
+    <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Service</th>
+            <th>Action</th>
+            <th>AV</th>
+            <th>Web Filter</th>
+            <th>App Control</th>
+            <th>IPS</th>
+            <th>SSL Inspect</th>
+            <th>Log</th>
+            <th>NAT</th>
+        </tr>
+        %table_p_fire%
+    </table>
 
-    <h1>2.10. Servei Antivirus</h1>
+    <h2>2.10. Servei Antivirus</h2>
     <p>El servei antivirus perimetral proveeix d’una base de dades automatitzada per assegurar la protecció davant de possible contingut de malware detectat a través de la navegació WEB.</p>
     <p>Actualment el dispositiu te com el perfil d’antivirus activat %antivirus_profile% que detecta i neteja malware i possibles connexions a xarxes de Botnets.</p>
     
-    <h1>2.11. Servei de filtratge Web</h1>
+    <h2>2.11. Servei de filtratge Web</h2>
     <p>El servei de filtratge de web, proveeix d’un servei de filtratge de contingut web a través dels protocols de navegació. </p>
     <p>Actualment en el dispositiu s’ha definit el perfil %web_filter% que actualment únicament genera logs de tot el tràfic de navegació web.</p>
 
 
-    <h1>2.12. Servei Application control</h1>
+    <h2>2.12. Servei Application control</h2>
     <p>El servei de Application Control realitza un filtratge a nivell d’aplicació per tal de bloquejar o filtrar determinades comunicacions d’aplicacions. </p>
     <p>En el dispositiu s’ha activat el perfil %app_list% i s’ha configurat per a generar logs de totes les aplicacions utilitzades i bloqueja totes les connexions d’aplicacions típiques de BotNets</p>
     
-    <h1>2.13. Servei Intrusion Protection</h1>
+    <h2>2.13. Servei Intrusion Protection</h2>
     <p>El Servei de Intrusion Protection permet detectar possibles atacs de xarxa contra la infraestructura de la organització.</p>
     <p>En el dispositiu s’ha activa el perfil %ips_sensor% en les polítiques de navegació web i s’han activat el comportament per defecte (bloqueig en cas necessari o monitorzació) de les signatures de tipus %entries_location%, de criticitat "%severity%" que afectin a serveis de sistemes operatius %os%.</p>
 
 
-
-
+</div>
 </body>
 </html>

@@ -52,22 +52,21 @@ def fill_snippet(snippet, conf):
     snippet = set_var('firm', conf['#firm'])
 
     #2.2
-    port = conf['config system global']['admin-sport'][0]
+    port = conf['config system global'].get('admin-sport', ['x'])[0]
     snippet = set_var('acc',port)
     
     conf_admin = conf['config system admin']['edit "admin"']
-    if 'trusthost1' in conf_admin:
-        ip1 = conf_admin['trusthost1']
-        ip2 = conf_admin['trusthost2']
-        ip3 = conf_admin['trusthost3']
-        snippet = set_var('ip1', ip1[0])
-        snippet = set_var('ip2', ip2[0])
-        snippet = set_var('ip3', ip3[0])
+    ip1 = conf_admin.get('trusthost1', ['0.0.0.0'])
+    ip2 = conf_admin.get('trusthost2', ['0.0.0.0'])
+    ip3 = conf_admin.get('trusthost3', ['0.0.0.0'])
+    snippet = set_var('ip1', ip1[0])
+    snippet = set_var('ip2', ip2[0])
+    snippet = set_var('ip3', ip3[0])
 
     #2.3
     prima = conf['config system dns']['primary'][0]
     secon = conf['config system dns']['secondary'][0]
-    domain = conf['config system dns']['domain'][0][1:-1]
+    domain = conf['config system dns'].get('domain', ['"-"'])[0][1:-1]
     snippet = set_var('spri', prima)
     snippet = set_var('ssec', secon)
     snippet = set_var('dom', domain)
