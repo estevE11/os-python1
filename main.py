@@ -80,18 +80,20 @@ def fill_snippet(snippet, conf):
         name = key[6:-1]
         if 'ip' in interf[key]:
             table_interf += "<tr>"
+
+            # Interficie
             table_interf += f"<td>{name}</td>"
-            
-            if "alias" in interf[key]:
-                table_interf +=f"<td>" + interf[key]["alias"][0][1:-1] + "</td>"
-            else:
-                table_interf +="<td>-</td>"
+
+            # Alias            
+            table_interf += f"<td>" + interf[key].get("alias", ['"-"'])[0][1:-1] + "</td>"
+
+            # Adress/FQDN
             table_interf += "<td>" + interf[key]["ip"][0] + "</td>"
 
-            if "dhcp-relay-ip" in interf[key]:
-                table_interf+= "<td>" + interf[key]["dhcp-relay-ip"][0][1:-1] + "</td>"
-            else:
-                table_interf +="<td>-</td>"
+            # DHCPRelay
+            table_interf += f"<td>" + interf[key].get("dhcp-relay-ip", ['"-"'])[0][1:-1] + "</td>"
+
+
             table_interf +="</tr>"
     snippet = set_var("table_interf", table_interf)
 
@@ -104,25 +106,17 @@ def fill_snippet(snippet, conf):
         table_enr += "<tr>"
         
         # Xarxa destí
-        if "dst" in router_static[key]:
-            table_enr +=f"<td>" + router_static[key]["dst"][0] + "/" + router_static[key]["dst"][1] + "</td>"
-        else:
-            table_enr +="<td>0.0.0.0/0.0.0.0</td>"
+        dst = router_static[key].get('dst', ['0.0.0.0', '0.0.0.0'])
+        table_enr +=f"<td>" + dst[0] + "/" + dst[1] + "</td>"
 
         # GW
-        if "gateway" in router_static[key]:
-            table_enr +=f"<td>" + router_static[key]["gateway"][0] + "</td>"
-        else:
-            table_enr +="<td>0.0.0.0</td>"
+        table_enr += f"<td>" + router_static[key].get("gateway", ['0.0.0.0'])[0] + "</td>"
 
         # Interficie
         table_enr +=f"<td>" + router_static[key]["device"][0][1:-1] + "</td>"
 
         # Prioritat
-        if "priority" in router_static[key]:
-            table_enr +=f"<td>" + router_static[key]["priority"][0] + "</td>"
-        else:
-            table_enr +="<td>-</td>"
+        table_enr += f"<td>" + router_static[key].get("priority", ['-'])[0] + "</td>"
 
     snippet = set_var('defa', str(count))
     snippet = set_var('table_enr', table_enr)
