@@ -123,9 +123,34 @@ def fill_snippet(snippet, conf):
     # Health-checks (optional, missing in some conf)
     if "config system link-monitor" in conf:
         snippet = set_var('sys_link_enabled', 'block')
-        print("system link-mon")
-        # table [config System link-monitor]
+        system_link = conf['config system link-monitor']
 
+        table_health = ""
+        for key in system_link.keys():
+            table_health += "<tr>"
+
+            # Xarxa destí
+            dst = system_link[key].get('server', ['"0.0.0.0"'])
+            table_health +=f"<td>" + dst[0][1:-1] + "</td>"
+
+            # GW
+            table_health += f"<td>" + system_link[key].get("gateway-ip", ['0.0.0.0'])[0] + "</td>"
+
+            # Interficie
+            table_health +=f"<td>" + system_link[key].get("srcintf")[0][1:-1] + "</td>"
+
+            # Interval
+            table_health +=f"<td>" + system_link[key].get("interval", '-')[0] + "</td>"
+
+            # Failtime
+            table_health +=f"<td>" + system_link[key].get("failtime", '-')[0] + "</td>"
+
+            # Recovery
+            table_health +=f"<td>" + system_link[key].get("recoverytime", '-')[0] + "</td>"
+
+
+        snippet = set_var('table_health', table_health)
+ 
     return snippet
 
 if __name__ == "__main__":

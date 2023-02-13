@@ -20,20 +20,19 @@
             background-color: white;
         }
 
-        table, th, td {
-            max-width: 600px !important;
+        table {
+            border-collapse: collapse;
         }
 
         th {
-            padding: 2px 10px;
-        }
-
-        thead {
-            background-color: gray;
+            padding: 4px 10px;
+            text-align: left;
+            background-color: #333;
+            color: white;
         }
 
         tbody tr:nth-child(even) {
-            background-color: lightgray;
+            background-color: #eaeaea;
         }
 
         td {
@@ -84,7 +83,7 @@
     <p><b>Accés: </b>https://10.132.4.254:8443</p>
     <p><b>Usuari: </b>admin</p>
     <p><b>Password: </b>dfAS34</p>
-    <p><b>Restriccions d’accés: </b>xarxes 10.132.4.0,10.132.6.0,218.142.21.231</p>
+    <p><b>Restriccions d’accés: </b>xarxes 10.132.4.0, 10.132.6.0, 218.142.21.231</p>
 
     <h2>2.3 General</h2>
     <p>El dispositiu està configurat en mode NAT, és a dir, es separen vàries xarxes a nivell tres
@@ -127,9 +126,21 @@
         </tr>
         <tr><td>0.0.0.0/0.0.0.0</td><td>10.132.0.1</td><td>port1</td><td>10</td><tr><td>0.0.0.0/0.0.0.0</td><td>10.132.7.1</td><td>port4</td><td>20</td>
     </table>
-    <p>S’ha definit una sèrie de Health-checks de ping  a través de les
-        interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
-        <!--tabla-->
+    <div style="display: block;">
+        <p>S’ha definit una sèrie de Health-checks de ping  a través de les
+                interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
+        <table>
+            <tr>
+                <th>Servidor destí</th>
+                <th>GW</th>
+                <th>Inteficie</th>
+                <th>Interval</th>
+                <th>failtime</th>
+                <th>recovery</th>
+            </tr>
+            <tr><td>8.8.4.4</td><td>10.132.0.1</td><td>port1</td><td>3</td><td>3</td><td>3</td><tr><td>8.8.4.4</td><td>10.132.7.1</td><td>port4</td><td>3</td><td>3</td><td>3</td>
+        </table>
+    </div>
 
     <h2>2.6 Objectes Adreces del Firewall</h2>
     <p>El dispositiu actualment te vinculats determinats objectes (noms descriptius) a adreces IP per
