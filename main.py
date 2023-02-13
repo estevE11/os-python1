@@ -122,6 +122,7 @@ def fill_snippet(snippet, conf):
 
     # Health-checks (optional, missing in some conf)
     if "config system link-monitor" in conf:
+        snippet = set_var('sys_link_enabled', 'block')
         print("system link-mon")
         # table [config System link-monitor]
 
