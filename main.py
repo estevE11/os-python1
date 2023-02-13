@@ -120,6 +120,11 @@ def fill_snippet(snippet, conf):
     snippet = set_var('defa', str(count))
     snippet = set_var('table_enr', table_enr)
 
+    # Health-checks (optional, missing in some conf)
+    if "config system link-monitor" in conf:
+        print("system link-mon")
+        # table [config System link-monitor]
+
     return snippet
 
 if __name__ == "__main__":
