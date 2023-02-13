@@ -129,7 +129,7 @@ def fill_snippet(snippet, conf):
         for key in system_link.keys():
             table_health += "<tr>"
 
-            # Xarxa destí
+            # Servidor destí
             dst = system_link[key].get('server', ['"0.0.0.0"'])
             table_health +=f"<td>" + dst[0][1:-1] + "</td>"
 
@@ -150,7 +150,33 @@ def fill_snippet(snippet, conf):
 
 
         snippet = set_var('table_health', table_health)
- 
+    
+    #2.6
+    fire_add = conf['config firewall address']
+
+    table_fire = ""
+    for key in fire_add.keys():
+        name = key[6:-1]
+        table_fire += "<tr>"
+        
+        #Name
+        table_fire += f"<td>" + name + "</td>"
+
+        #category 
+        table_fire += "<td> Adress </td>"
+
+        #fqdn 
+        table_fire += f"<td>" + fire_add[key].get("subnet", '-')[0] + "</td>"#aqui a veces coge los datos de la subnet o de start ip y tambien aveces hay 2 ip
+        
+        #interface 
+        table_fire += "<td> Any </td>"
+        
+        #type 
+        table_fire += f"<td>" + fire_add[key].get("type", 'Subnet')[0] + "</td>"
+    
+    table_fire += "</tr>"
+
+    snippet = set_var('table_fire', table_fire)
     return snippet
 
 if __name__ == "__main__":
