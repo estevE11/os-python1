@@ -172,11 +172,78 @@ def fill_snippet(snippet, conf):
         table_fire += "<td> Any </td>"
         
         #type 
-        table_fire += f"<td>" + fire_add[key].get("type", 'Subnet')[0] + "</td>"
+        table_fire += f"<td>" + fire_add[key].get("type", 'Subnet')[0] + "</td></tr>"
     
-    table_fire += "</tr>"
+    
 
     snippet = set_var('table_fire', table_fire)
+
+    #2.7
+    fire_custom = conf['config firewall service custom']
+
+    table_obj_serv = ""
+    for key in fire_custom.keys():
+        name = key[6:-1]
+        table_obj_serv += "<tr>"
+
+        #Nom del Servei
+        table_obj_serv += f"<td>" + name + "</td>"
+
+        #Category
+        table_obj_serv += f"<td>" + fire_custom[key].get("category",' ')[0] + "</td>"
+        
+        #tcp
+        table_obj_serv += f"<td>" + fire_custom[key].get("tcp-portrange",' ')[0] + "</td>"
+
+        #udp
+        table_obj_serv += f"<td>" + fire_custom[key].get("udp-portrange",' ')[0] + "</td>"
+
+        #protocol
+        table_obj_serv += f"<td>" + fire_custom[key].get("protocol",' ')[0] + "</td></tr>"
+    
+    snippet = set_var('table_obj_serv', table_obj_serv)
+
+    #2.8
+    fire_vip = conf['config firewall vip']
+
+    table_nats = ""
+
+    for key in fire_vip.keys():
+        name = key[6:-1]
+        table_nats += "<tr>"
+        
+        #Name
+        table_nats += f"<td>" + name + "</td>"
+
+        #ip
+        table_nats += f"<td>" + fire_vip[key].get("extintf",'-')[0] + "/" + fire_vip[key].get("extip",'-')[0] + "</td>"
+        
+        #service port
+        table_nats += f"<td>" + fire_vip[key].get("extport",'-')[0] + "/" + fire_vip[key].get("protocol",'-')[0] + "</td>"
+
+        #mapped IP
+        table_nats += f"<td>" + fire_vip[key].get("mappedip",' ')[0] + "</td>"
+
+        #protocol
+        table_nats += f"<td>" + fire_vip[key].get("mappedport",'-')[0] + "/" + fire_vip[key].get("protocol",'-')[0] + "</td></tr>"
+    
+    snippet = set_var('table_nats', table_nats)
+
+    #2.9
+    fire_policy = conf['config firewall policy']
+
+    table_p_fire = ""
+    i = 1
+
+    for key in fire_policy.keys():
+        table_p_fire += "<tr>"
+
+        #ID
+        table_p_fire += f"<td>" + i + "</td>"
+
+        #From
+        table_p_fire += f"<td>" + fire_policy[key].get("srcintf","") + "(" + fire_policy[key].get("srcaddr","") + ") </td>"
+
     return snippet
 
 if __name__ == "__main__":
