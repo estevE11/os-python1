@@ -300,6 +300,27 @@ def fill_snippet(snippet, conf):
 
     snippet = set_var('table_p_fire', table_p_fire)
 
+    # 2.10
+    antivirus = list(conf['config antivirus profile'].keys())[1][6:-1]
+    snippet = set_var('antivirus_profile', antivirus)
+
+    # 2.11
+    web_filter = list(conf['config webfilter profile'].keys())[-1][6:-1]
+    snippet = set_var('web_filter', web_filter)
+
+    # 2.12
+    app_list = list(conf['config application list'].keys())[-1][6:-1]
+    snippet = set_var('app_list', app_list)
+
+    # 2.13
+    key = list(conf['config ips sensor'].keys())[-1]
+    ips_sensor_conf = conf['config ips sensor'][key]['config entries']['edit 1']
+
+    snippet = set_var('ips_sensor', key[6:-1])
+    snippet = set_var('entries_location', ips_sensor_conf['location'][0])
+    snippet = set_var('severity', str(ips_sensor_conf['severity'])[2:-2].replace("', '", " i "))
+    snippet = set_var('os', str(ips_sensor_conf['os'])[2:-2].replace("'", ""))
+
     return snippet
 
 if __name__ == "__main__":
