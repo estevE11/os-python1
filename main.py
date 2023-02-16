@@ -156,7 +156,16 @@ def fill_snippet(snippet, conf):
 
     table_fire = ""
     for key in fire_add.keys():
+        type = fire_add[key].get("type", ["Subnet"])[0]
+        if type == "fqdn":
+            continue
+        if type == "iprange":
+            type == "Range"
+
         name = key[6:-1]
+        if name == "none":
+            continue
+
         table_fire += "<tr>"
         
         #Name
@@ -166,13 +175,23 @@ def fill_snippet(snippet, conf):
         table_fire += "<td> Adress </td>"
 
         #fqdn 
-        table_fire += f"<td>" + fire_add[key].get("subnet", '-')[0] + "</td>"#aqui a veces coge los datos de la subnet o de start ip y tambien aveces hay 2 ip
-        
+        if type == "Subnet":
+            addr = fire_add[key].get("subnet", ["0.0.0.0","0.0.0.0"])
+            if addr[1] == "255.255.255.255":
+                table_fire += f"<td>" + addr[0] + "</td>"
+            else:    
+                table_fire += f"<td>" + addr[0] + "/" + addr[1] + "</td>"
+        else:
+            start_ip = fire_add[key].get("start-ip", ["0.0.0.0"])
+            end_ip = fire_add[key].get("end-ip", ["0.0.0.0"])
+            table_fire += f"<td>" + start_ip[0] + end_ip[0] + "</td>"
+
+
         #interface 
-        table_fire += "<td> Any </td>"
+        table_fire += "<td>Any</td>"
         
         #type 
-        table_fire += f"<td>" + fire_add[key].get("type", 'Subnet')[0] + "</td></tr>"
+        table_fire += f"<td>" + type + "</td></tr>"
     
     
 
