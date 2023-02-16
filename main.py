@@ -209,13 +209,13 @@ def fill_snippet(snippet, conf):
         table_obj_serv += f"<td>" + name + "</td>"
 
         #Category
-        table_obj_serv += f"<td>" + fire_custom[key].get("category",' ')[0] + "</td>"
+        table_obj_serv += f"<td>" + str(fire_custom[key].get("category",' '))[3:-3].replace("'", "").replace(",", "") + "</td>"
         
         #tcp
         table_obj_serv += f"<td>" + fire_custom[key].get("tcp-portrange",' ')[0] + "</td>"
 
         #udp
-        table_obj_serv += f"<td>" + fire_custom[key].get("udp-portrange",' ')[0] + "</td>"
+        table_obj_serv += f"<td>" + str(fire_custom[key].get("udp-portrange",[]))[1:-1].replace("'", "") + "</td>"
 
         #protocol
         table_obj_serv += f"<td>" + fire_custom[key].get("protocol",' ')[0] + "</td></tr>"
