@@ -206,7 +206,7 @@
     
     <h2>2.9. Polítiques de Firewall</h2>
     <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
-    <table style="font-size: 10px;">
+    <table style="font-size: 10px; margin-left: -40px !important;">
         <tr>
             <th>ID</th>
             <th>From</th>
@@ -223,7 +223,7 @@
             <th>Log</th>
             <th>NAT</th>
         </tr>
-        %table_p_fire%
+        <tr><td>1</td><td>port3(inside_wrk) </td><td>port4(all) </td><td>inside_wrk</td><td>all</td><td>ALL</td><td>accept</td><td>UTM-AV</td><td>UTM-WF</td><td>UTM-APP</td><td>UTM-IPS</td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>2</td><td>port3(inside_wrk) </td><td>port2(inside_srv) </td><td>inside_wrk</td><td>inside_srv</td><td>ALL</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>disable</td><td></td><tr><td>3</td><td>port2(inside_srv) </td><td>port3(inside_wrk) </td><td>inside_srv</td><td>inside_wrk</td><td>ALL</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>disable</td><td></td><tr><td>4</td><td>port3(inside_wrk) </td><td>port1(all) </td><td>inside_wrk</td><td>all</td><td>ALL</td><td>accept</td><td>UTM-AV</td><td>UTM-WF</td><td>UTM-APP</td><td>UTM-IPS</td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>5</td><td>port2(inside_srv) </td><td>port1(all) </td><td>inside_srv</td><td>all</td><td>ALL</td><td>accept</td><td>UTM-AV</td><td>UTM-WF</td><td>UTM-APP</td><td>UTM-IPS</td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>6</td><td>port2(inside_srv) </td><td>port4(all) </td><td>inside_srv</td><td>all</td><td>ALL</td><td>accept</td><td>UTM-AV</td><td>UTM-WF</td><td>UTM-APP</td><td>UTM-IPS</td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>7</td><td>ssl.root(vpn-net) </td><td>port2(inside_srv) </td><td>vpn-net</td><td>inside_srv</td><td>ALL</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>all</td><td>enable</td><tr><td>8</td><td>ssl.root(vpn-net) </td><td>port3(inside_wrk) </td><td>vpn-net</td><td>inside_wrk</td><td>ALL</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>all</td><td>enable</td><tr><td>9</td><td>port1(cloud1) </td><td>port2(VIP-srv-01) </td><td>cloud1</td><td>VIP-srv-01</td><td>8083_TCP</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>all</td><td></td>
     </table>
 
     <h2>2.10. Servei Antivirus</h2>

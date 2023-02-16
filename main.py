@@ -252,16 +252,53 @@ def fill_snippet(snippet, conf):
     fire_policy = conf['config firewall policy']
 
     table_p_fire = ""
-    i = 1
 
-    for key in fire_policy.keys():
+    for i, key in enumerate(fire_policy.keys()):
         table_p_fire += "<tr>"
 
         #ID
-        table_p_fire += f"<td>" + str(i) + "</td>"
+        table_p_fire += f"<td>" + str(i+1) + "</td>"
 
         #From
-        table_p_fire += f"<td>" + fire_policy[key].get("srcintf", [""])[0] + "(" + fire_policy[key].get("srcaddr",[""])[0] + ") </td>"
+        table_p_fire += f"<td>" + fire_policy[key].get("srcintf", [""])[0][1:-1] + "(" + fire_policy[key].get("srcaddr",[""])[0][1:-1] + ") </td>"
+
+        #To
+        table_p_fire += f"<td>" + fire_policy[key].get("dstintf", [""])[0][1:-1] + "(" + fire_policy[key].get("dstaddr",[""])[0][1:-1] + ") </td>"
+
+        #Source
+        table_p_fire += f"<td>" + fire_policy[key].get("srcaddr",[""])[0][1:-1] + "</td>"
+
+        #Destination
+        table_p_fire += f"<td>" + fire_policy[key].get("dstaddr",[""])[0][1:-1] + "</td>"
+
+        #Service
+        table_p_fire += f"<td>" + fire_policy[key].get("service",[""])[0][1:-1] + "</td>"
+
+        #Action
+        table_p_fire += f"<td>" + fire_policy[key].get("action",[""])[0] + "</td>"
+
+        #Av
+        table_p_fire += f"<td>" + fire_policy[key].get("av-profile",[""])[0][1:-1] + "</td>"
+
+        #web filter
+        table_p_fire += f"<td>" + fire_policy[key].get("webfilter-profile",[""])[0][1:-1] + "</td>"
+
+        #app control
+        table_p_fire += f"<td>" + fire_policy[key].get("application-list",[""])[0][1:-1] + "</td>"
+
+        #ips
+        table_p_fire += f"<td>" + fire_policy[key].get("ips-sensor",[""])[0][1:-1] + "</td>"
+
+        #ssl inspect
+        table_p_fire += f"<td>" + fire_policy[key].get("ssl-ssh-profile",[""])[0][1:-1] + "</td>"
+
+        #log
+        table_p_fire += f"<td>" + fire_policy[key].get("logtraffic",["All"])[0] + "</td>"
+
+        #nat
+        table_p_fire += f"<td>" + fire_policy[key].get("nat",[""])[0] + "</td>"
+
+    snippet = set_var('table_p_fire', table_p_fire)
 
     return snippet
 
