@@ -239,10 +239,10 @@ def fill_snippet(snippet, conf):
         table_p_fire += "<tr>"
 
         #ID
-        table_p_fire += f"<td>" + i + "</td>"
+        table_p_fire += f"<td>" + str(i) + "</td>"
 
         #From
-        table_p_fire += f"<td>" + fire_policy[key].get("srcintf","") + "(" + fire_policy[key].get("srcaddr","") + ") </td>"
+        table_p_fire += f"<td>" + fire_policy[key].get("srcintf", [""])[0] + "(" + fire_policy[key].get("srcaddr",[""])[0] + ") </td>"
 
     return snippet
 
