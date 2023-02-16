@@ -235,13 +235,13 @@ def fill_snippet(snippet, conf):
         table_nats += f"<td>" + name + "</td>"
 
         #ip
-        table_nats += f"<td>" + fire_vip[key].get("extintf",'-')[0] + "/" + fire_vip[key].get("extip",'-')[0] + "</td>"
+        table_nats += f"<td>" + fire_vip[key].get("extintf",'-')[0][1:-1] + "/" + fire_vip[key].get("extip",'-')[0] + "</td>"
         
         #service port
         table_nats += f"<td>" + fire_vip[key].get("extport",'-')[0] + "/" + fire_vip[key].get("protocol",'-')[0] + "</td>"
 
         #mapped IP
-        table_nats += f"<td>" + fire_vip[key].get("mappedip",' ')[0] + "</td>"
+        table_nats += f"<td>" + fire_vip[key].get("mappedip",' ')[0][1:-1] + "</td>"
 
         #protocol
         table_nats += f"<td>" + fire_vip[key].get("mappedport",'-')[0] + "/" + fire_vip[key].get("protocol",'-')[0] + "</td></tr>"
