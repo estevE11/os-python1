@@ -56,12 +56,23 @@ def fill_snippet(snippet, conf):
     snippet = set_var('acc',port)
     
     conf_admin = conf['config system admin']['edit "admin"']
-    ip1 = conf_admin.get('trusthost1', ['0.0.0.0'])
-    ip2 = conf_admin.get('trusthost2', ['0.0.0.0'])
-    ip3 = conf_admin.get('trusthost3', ['0.0.0.0'])
-    snippet = set_var('ip1', ip1[0])
-    snippet = set_var('ip2', ip2[0])
-    snippet = set_var('ip3', ip3[0])
+    ip1 = conf_admin.get('trusthost1', ['0.0.0.0', '0.0.0.0'])
+    ip2 = conf_admin.get('trusthost2', ['0.0.0.0', '0.0.0.0'])
+    ip3 = conf_admin.get('trusthost3', ['0.0.0.0', '0.0.0.0'])
+
+    masks = [ip1[1], ip2[1], ip3[1]]
+    masks_res = []
+    for mask in masks:
+        count = 0
+        mask = mask.split(".")
+        for it in mask:
+            if it != "0":
+                count += 1
+        masks_res.append(count*8)
+
+    snippet = set_var('ip1', ip1[0] + "/" + str(masks_res[0]))
+    snippet = set_var('ip2', ip2[0] + "/" + str(masks_res[1]))
+    snippet = set_var('ip3', ip3[0] + "/" + str(masks_res[2]))
 
     #2.3
     prima = conf['config system dns']['primary'][0]
