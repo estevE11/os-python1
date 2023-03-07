@@ -328,9 +328,12 @@ def fill_snippet(snippet, conf):
     ips_sensor_conf = conf['config ips sensor'][key]['config entries']['edit 1']
 
     snippet = set_var('ips_sensor', key[6:-1])
-    snippet = set_var('entries_location', ips_sensor_conf['location'][0])
-    snippet = set_var('severity', str(ips_sensor_conf['severity'])[2:-2].replace("', '", " i "))
-    snippet = set_var('os', str(ips_sensor_conf['os'])[2:-2].replace("'", ""))
+    snippet = set_var('entries_location', ips_sensor_conf.get('location', [''])[0])
+    if "severity" in ips_sensor_conf:
+        snippet = set_var('severity', str(ips_sensor_conf['severity'])[2:-2].replace("', '", " i "))
+    if "os" in ips_sensor_conf:
+        os = str(ips_sensor_conf['os'])[2:-2].split("', '")
+        snippet = set_var('os', str(os[0:-1])[2:-2].replace("', '", ", ") + " i " + os[-1])
 
     return snippet
 

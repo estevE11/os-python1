@@ -10,10 +10,15 @@
         body {
             background-color: lightgray;
             font-family: Arial, Helvetica, sans-serif;
+            text-align: justify;
+        }
+
+        h2 {
+            color: #ffbb00;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: auto;
             padding: 30px 100px;
             margin-top: 0;
@@ -22,6 +27,8 @@
 
         table {
             border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
         }
 
         th {
@@ -83,7 +90,7 @@
     <p><b>Accés: </b>https://10.132.4.254:x</p>
     <p><b>Usuari: </b>admin</p>
     <p><b>Password: </b>dfAS34</p>
-    <p><b>Restriccions d’accés: </b>xarxes 10.162.1.0,201.114.37.231,72.162.111.132</p>
+    <p><b>Restriccions d’accés: </b>xarxes 10.162.1.0/24, 201.114.37.231/32, 72.162.111.132/32</p>
 
     <h2>2.3 General</h2>
     <p>El dispositiu està configurat en mode NAT, és a dir, es separen vàries xarxes a nivell tres
@@ -126,9 +133,21 @@
         </tr>
         <tr><td>0.0.0.0/0.0.0.0</td><td>10.68.206.73</td><td>port1</td><td>-</td>
     </table>
-    <p>S’ha definit una sèrie de Health-checks de ping  a través de les
-        interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
-        <!--tabla-->
+    <div style="display: %sys_link_enabled%;">
+        <p>S’ha definit una sèrie de Health-checks de ping  a través de les
+                interfícies wan per detectar la caiguda de les línies de comunicacions.</p>
+        <table>
+            <tr>
+                <th>Servidor destí</th>
+                <th>GW</th>
+                <th>Inteficie</th>
+                <th>Interval</th>
+                <th>failtime</th>
+                <th>recovery</th>
+            </tr>
+            %table_health%
+        </table>
+    </div>
 
     <h2>2.6 Objectes Adreces del Firewall</h2>
     <p>El dispositiu actualment te vinculats determinats objectes (noms descriptius) a adreces IP per
@@ -141,7 +160,7 @@
             <th>Interface</th>
             <th>Type*</th>
         </tr>
-        %table_fire%
+        <tr><td>SSLVPN_TUNNEL_ADDR1</td><td> Adress </td><td>10.212.134.20010.212.134.210</td><td>Any</td><td>iprange</td></tr>
     </table>
     
     <p>*[set type] = not exist (Subnet) / [set type] = iprange (range)</p>
@@ -159,17 +178,7 @@
             <th>Ports UDP</th>
             <th>Protocol</th>
         </tr>
-        %table_obj_serv%
-    </table>
-    <p>Els serveis addicionals són:</p>
-    <table>
-        <tr>
-            <th>Nom del servei</th>
-            <th>Categoria</th>
-            <th>Ports TCP</th>
-            <th>Ports UDP</th>
-        </tr>
-        %table_add%
+        <tr><td>ALL</td><td>General</td><td> </td><td></td><td>IP</td></tr><tr><td>ALL_TCP</td><td>General</td><td>1-65535</td><td></td><td> </td></tr><tr><td>ALL_UDP</td><td>General</td><td> </td><td>1-65535</td><td> </td></tr><tr><td>ALL_ICMP</td><td>General</td><td> </td><td></td><td>ICMP</td></tr><tr><td>ALL_ICMP6</td><td>General</td><td> </td><td></td><td>ICMP6</td></tr><tr><td>GRE</td><td>Tunneling</td><td> </td><td></td><td>IP</td></tr><tr><td>AH</td><td>Tunneling</td><td> </td><td></td><td>IP</td></tr><tr><td>ESP</td><td>Tunneling</td><td> </td><td></td><td>IP</td></tr><tr><td>AOL</td><td></td><td>5190-5194</td><td></td><td> </td></tr><tr><td>BGP</td><td>Network Services</td><td>179</td><td></td><td> </td></tr><tr><td>DHCP</td><td>Network Services</td><td> </td><td>67-68</td><td> </td></tr><tr><td>DNS</td><td>Network Services</td><td>53</td><td>53</td><td> </td></tr><tr><td>FINGER</td><td></td><td>79</td><td></td><td> </td></tr><tr><td>FTP</td><td>File Access</td><td>21</td><td></td><td> </td></tr><tr><td>FTP_GET</td><td>File Access</td><td>21</td><td></td><td> </td></tr><tr><td>FTP_PUT</td><td>File Access</td><td>21</td><td></td><td> </td></tr><tr><td>GOPHER</td><td></td><td>70</td><td></td><td> </td></tr><tr><td>H323</td><td>VoIP Messaging & Other Applications</td><td>1720</td><td>1719</td><td> </td></tr><tr><td>HTTP</td><td>Web Access</td><td>80</td><td></td><td> </td></tr><tr><td>HTTPS</td><td>Web Access</td><td>443</td><td></td><td> </td></tr><tr><td>IKE</td><td>Tunneling</td><td> </td><td>500, 4500</td><td> </td></tr><tr><td>IMAP</td><td>Email</td><td>143</td><td></td><td> </td></tr><tr><td>IMAPS</td><td>Email</td><td>993</td><td></td><td> </td></tr><tr><td>Internet-Locator-Service</td><td></td><td>389</td><td></td><td> </td></tr><tr><td>IRC</td><td>VoIP Messaging & Other Applications</td><td>6660-6669</td><td></td><td> </td></tr><tr><td>L2TP</td><td>Tunneling</td><td>1701</td><td>1701</td><td> </td></tr><tr><td>LDAP</td><td>Authentication</td><td>389</td><td></td><td> </td></tr><tr><td>NetMeeting</td><td></td><td>1720</td><td></td><td> </td></tr><tr><td>NFS</td><td>File Access</td><td>111</td><td>111, 2049</td><td> </td></tr><tr><td>NNTP</td><td></td><td>119</td><td></td><td> </td></tr><tr><td>NTP</td><td>Network Services</td><td>123</td><td>123</td><td> </td></tr><tr><td>OSPF</td><td>Network Services</td><td> </td><td></td><td>IP</td></tr><tr><td>PC-Anywhere</td><td>Remote Access</td><td>5631</td><td>5632</td><td> </td></tr><tr><td>PING</td><td>Network Services</td><td> </td><td></td><td>ICMP</td></tr><tr><td>TIMESTAMP</td><td></td><td> </td><td></td><td>ICMP</td></tr><tr><td>INFO_REQUEST</td><td></td><td> </td><td></td><td>ICMP</td></tr><tr><td>INFO_ADDRESS</td><td></td><td> </td><td></td><td>ICMP</td></tr><tr><td>ONC-RPC</td><td>Remote Access</td><td>111</td><td>111</td><td> </td></tr><tr><td>DCE-RPC</td><td>Remote Access</td><td>135</td><td>135</td><td> </td></tr><tr><td>POP3</td><td>Email</td><td>110</td><td></td><td> </td></tr><tr><td>POP3S</td><td>Email</td><td>995</td><td></td><td> </td></tr><tr><td>PPTP</td><td>Tunneling</td><td>1723</td><td></td><td> </td></tr><tr><td>QUAKE</td><td></td><td> </td><td>26000, 27000, 27910, 27960</td><td> </td></tr><tr><td>RAUDIO</td><td></td><td> </td><td>7070</td><td> </td></tr><tr><td>REXEC</td><td></td><td>512</td><td></td><td> </td></tr><tr><td>RIP</td><td>Network Services</td><td> </td><td>520</td><td> </td></tr><tr><td>RLOGIN</td><td></td><td>513:512-1023</td><td></td><td> </td></tr><tr><td>RSH</td><td></td><td>514:512-1023</td><td></td><td> </td></tr><tr><td>SCCP</td><td>VoIP Messaging & Other Applications</td><td>2000</td><td></td><td> </td></tr><tr><td>SIP</td><td>VoIP Messaging & Other Applications</td><td>5060</td><td>5060</td><td> </td></tr><tr><td>SIP-MSNmessenger</td><td>VoIP Messaging & Other Applications</td><td>1863</td><td></td><td> </td></tr><tr><td>SAMBA</td><td>File Access</td><td>139</td><td></td><td> </td></tr><tr><td>SMTP</td><td>Email</td><td>25</td><td></td><td> </td></tr><tr><td>SMTPS</td><td>Email</td><td>465</td><td></td><td> </td></tr><tr><td>SNMP</td><td>Network Services</td><td>161-162</td><td>161-162</td><td> </td></tr><tr><td>SSH</td><td>Remote Access</td><td>22</td><td></td><td> </td></tr><tr><td>SYSLOG</td><td>Network Services</td><td> </td><td>514</td><td> </td></tr><tr><td>TALK</td><td></td><td> </td><td>517-518</td><td> </td></tr><tr><td>TELNET</td><td>Remote Access</td><td>23</td><td></td><td> </td></tr><tr><td>TFTP</td><td>File Access</td><td> </td><td>69</td><td> </td></tr><tr><td>MGCP</td><td></td><td> </td><td>2427, 2727</td><td> </td></tr><tr><td>UUCP</td><td></td><td>540</td><td></td><td> </td></tr><tr><td>VDOLIVE</td><td></td><td>7000-7010</td><td></td><td> </td></tr><tr><td>WAIS</td><td></td><td>210</td><td></td><td> </td></tr><tr><td>WINFRAME</td><td></td><td>1494</td><td></td><td> </td></tr><tr><td>X-WINDOWS</td><td>Remote Access</td><td>6000-6063</td><td></td><td> </td></tr><tr><td>PING6</td><td></td><td> </td><td></td><td>ICMP6</td></tr><tr><td>MS-SQL</td><td>VoIP Messaging & Other Applications</td><td>1433</td><td></td><td> </td></tr><tr><td>MYSQL</td><td>VoIP Messaging & Other Applications</td><td>3306</td><td></td><td> </td></tr><tr><td>RDP</td><td>Remote Access</td><td>3389</td><td></td><td> </td></tr><tr><td>VNC</td><td>Remote Access</td><td>5900</td><td></td><td> </td></tr><tr><td>DHCP6</td><td>Network Services</td><td> </td><td>546, 547</td><td> </td></tr><tr><td>SQUID</td><td>Tunneling</td><td>3128</td><td></td><td> </td></tr><tr><td>SOCKS</td><td>Tunneling</td><td>1080</td><td>1080</td><td> </td></tr><tr><td>WINS</td><td>Remote Access</td><td>1512</td><td>1512</td><td> </td></tr><tr><td>RADIUS</td><td>Authentication</td><td> </td><td>1812, 1813</td><td> </td></tr><tr><td>RADIUS-OLD</td><td></td><td> </td><td>1645, 1646</td><td> </td></tr><tr><td>CVSPSERVER</td><td></td><td>2401</td><td>2401</td><td> </td></tr><tr><td>AFS3</td><td>File Access</td><td>7000-7009</td><td>7000-7009</td><td> </td></tr><tr><td>TRACEROUTE</td><td>Network Services</td><td> </td><td>33434-33535</td><td> </td></tr><tr><td>RTSP</td><td>VoIP Messaging & Other Applications</td><td>554</td><td>554</td><td> </td></tr><tr><td>MMS</td><td></td><td>1755</td><td>1024-5000</td><td> </td></tr><tr><td>KERBEROS</td><td>Authentication</td><td>88</td><td>88</td><td> </td></tr><tr><td>LDAP_UDP</td><td>Authentication</td><td> </td><td>389</td><td> </td></tr><tr><td>SMB</td><td>File Access</td><td>445</td><td></td><td> </td></tr><tr><td>webproxy</td><td>Web Proxy</td><td>0-65535:0-65535</td><td></td><td>ALL</td></tr><tr><td>NONE</td><td></td><td>0</td><td></td><td> </td></tr><tr><td>BS_IPcam_PORTS</td><td>Remote Access</td><td>80</td><td>37778</td><td> </td></tr>
     </table>
 
     <h2>2.8. NATs d’entrada (Virtual IPs)</h2>
@@ -182,12 +191,12 @@
             <th>Mapped IP Address/Range</th>
             <th>Map to Port</th>
         </tr>
-        %table_nats%
+        <tr><td>BS_IPcam_80TCP</td><td>port1/10.67.190.74</td><td>80/-</td><td>10.162.1.9</td><td>80/-</td></tr><tr><td>BS_IPcam_81TCP</td><td>port1/10.67.190.74</td><td>81/-</td><td>10.162.1.9</td><td>81/-</td></tr><tr><td>BS_IPcam_37777TCP</td><td>port1/10.67.190.74</td><td>37777/-</td><td>10.162.1.9</td><td>37777/-</td></tr><tr><td>BS_IPcam_37778UDP</td><td>port1/10.67.190.74</td><td>37778/udp</td><td>10.162.1.9</td><td>37778/udp</td></tr>
     </table>
     
     <h2>2.9. Polítiques de Firewall</h2>
     <p>A continuació es mostren les polítiques de filtratge definides en el dispositiu Fortigate:</p>
-    <table>
+    <table style="font-size: 10px; margin-left: -40px !important;">
         <tr>
             <th>ID</th>
             <th>From</th>
@@ -204,25 +213,25 @@
             <th>Log</th>
             <th>NAT</th>
         </tr>
-        %table_p_fire%
+        <tr><td>1</td><td>port2(all) </td><td>port1(all) </td><td>all</td><td>all</td><td>ALL</td><td>accept</td><td>BS_AV_profile</td><td>BS_WF_Innevis</td><td></td><td></td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>2</td><td>port3(all) </td><td>port1(all) </td><td>all</td><td>all</td><td>ALL</td><td>accept</td><td>BS_AV_profile</td><td>BS_WF_Innevis</td><td></td><td></td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>3</td><td>port4(all) </td><td>port1(all) </td><td>all</td><td>all</td><td>ALL</td><td>accept</td><td>BS_AV_profile</td><td>BS_WF_Alumnes</td><td></td><td></td><td>certificate-inspection</td><td>all</td><td>enable</td><tr><td>4</td><td>port1(all) </td><td>port2(BS_VideoServer) </td><td>all</td><td>BS_VideoServer</td><td>BS_IPcam_PORTS</td><td>accept</td><td></td><td></td><td></td><td></td><td></td><td>all</td><td></td>
     </table>
 
     <h2>2.10. Servei Antivirus</h2>
     <p>El servei antivirus perimetral proveeix d’una base de dades automatitzada per assegurar la protecció davant de possible contingut de malware detectat a través de la navegació WEB.</p>
-    <p>Actualment el dispositiu te com el perfil d’antivirus activat %antivirus_profile% que detecta i neteja malware i possibles connexions a xarxes de Botnets.</p>
+    <p>Actualment el dispositiu te com el perfil d’antivirus activat <b>AV-flow</b> que detecta i neteja malware i possibles connexions a xarxes de Botnets.</p>
     
     <h2>2.11. Servei de filtratge Web</h2>
     <p>El servei de filtratge de web, proveeix d’un servei de filtratge de contingut web a través dels protocols de navegació. </p>
-    <p>Actualment en el dispositiu s’ha definit el perfil %web_filter% que actualment únicament genera logs de tot el tràfic de navegació web.</p>
+    <p>Actualment en el dispositiu s’ha definit el perfil <b>BS_WF_Alumnes</b> que actualment únicament genera logs de tot el tràfic de navegació web.</p>
 
 
     <h2>2.12. Servei Application control</h2>
     <p>El servei de Application Control realitza un filtratge a nivell d’aplicació per tal de bloquejar o filtrar determinades comunicacions d’aplicacions. </p>
-    <p>En el dispositiu s’ha activat el perfil %app_list% i s’ha configurat per a generar logs de totes les aplicacions utilitzades i bloqueja totes les connexions d’aplicacions típiques de BotNets</p>
+    <p>En el dispositiu s’ha activat el perfil <b>BS_AC_profile</b> i s’ha configurat per a generar logs de totes les aplicacions utilitzades i bloqueja totes les connexions d’aplicacions típiques de BotNets</p>
     
     <h2>2.13. Servei Intrusion Protection</h2>
     <p>El Servei de Intrusion Protection permet detectar possibles atacs de xarxa contra la infraestructura de la organització.</p>
-    <p>En el dispositiu s’ha activa el perfil %ips_sensor% en les polítiques de navegació web i s’han activat el comportament per defecte (bloqueig en cas necessari o monitorzació) de les signatures de tipus %entries_location%, de criticitat "%severity%" que afectin a serveis de sistemes operatius %os%.</p>
+    <p>En el dispositiu s’ha activa el perfil <b>protect_client</b> en les polítiques de navegació web i s’han activat el comportament per defecte (bloqueig en cas necessari o monitorzació) de les signatures de tipus client, de criticitat %severity% que afectin a serveis de sistemes operatius %os%.</p>
 
 
 </div>
